@@ -5,6 +5,12 @@ This library is designed to work with Newhaven OLEDs based on the US20166
 controller chip. This includes NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Others
 may also work, but were not tested with this library.
 
+This library should work with both Arduino and Energia MSP430 projects. 
+
+Although the Newhaven data sheets don't directly mention support for 3.3V
+operation (e.g., when using MSP430 controllers), I have had success with 
+configurations using 3.3V logic and either 5V or 3.3V VDD supply voltage. 
+
 The library implements a "bit-bang" SPI, and can therefore use any available
 Arduino I/O pins to control the display. However, if your project is using
 hardware SPI to control other devices, then do not use the hardware SPI pins.
@@ -39,11 +45,11 @@ along with the datasheets referenced below for further details.
 Hardware Pin Configuration
 --------------------------
 
-     OLED                ARDUINO
-     ----                -------
+     OLED                ARDUINO/MSP430
+     ----                --------------
      Pin 1 (Vss)         GND
-     Pin 2 (VDD)         5V
-     Pin 3 (REGVDD)      5V
+     Pin 2 (VDD)         5V (or 3.3V)
+     Pin 3 (REGVDD)      5V (or 3.3V, same as pin 2)
      Pins 4 to 6         GND
      Pin 7 (SCLK)        Pin number defined with "sckPin" in NewhavenOLED constructor
      Pin 8 (SID)         Pin number defined with "mosiPin" in NewhavenOLED constructor
