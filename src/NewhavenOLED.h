@@ -28,6 +28,7 @@
 */
 #ifndef NEWHAVEN_OLED
 #define NEWHAVEN_OLED
+
 #include <Arduino.h>
 
 #define NO_PIN 255
