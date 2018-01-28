@@ -5,11 +5,11 @@ This library is designed to work with Newhaven OLEDs based on the US20166
 controller chip. This includes NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Others
 may also work, but were not tested with this library.
 
-This library should work with both Arduino and Energia MSP430 projects. 
+This library should work with both Arduino and Energia MSP430 projects.
 
 Although the Newhaven data sheets don't directly mention support for 3.3V
-operation (e.g., when using MSP430 controllers), I have had success with 
-configurations using 3.3V logic and either 5V or 3.3V VDD supply voltage. 
+operation (e.g., when using MSP430 controllers), I have had success with
+configurations using 3.3V logic and either 5V or 3.3V VDD supply voltage.
 
 The library implements a "bit-bang" SPI, and can therefore use any available
 Arduino I/O pins to control the display. However, if your project is using
@@ -74,3 +74,4 @@ Additional References
 + NHD-0220CW [datasheet](https://www.newhavendisplay.com/specs/NHD-0220CW-AB3.pdf).
 + US2066 controller chip [datasheet](http://www.newhavendisplay.com/app_notes/US2066.pdf).
 + Sample code from [Newhaven Display International](https://newhavendisplay.com/app_notes.html).
++ [Tutorial code](https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0) by Pasquale D'Antini.
