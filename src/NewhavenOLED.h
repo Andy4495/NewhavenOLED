@@ -3,6 +3,8 @@
    Implemented using "bit-bang" SPI -- do not user hardware SPI pins
    if other devices are using hardware SPI.
 
+   https://gitlab.com/Andy4495/NewhavenOLED
+
    Pin Configuration:
    OLED                ARDUINO
    ----                -------
