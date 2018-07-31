@@ -1,19 +1,20 @@
 NewhavenOLED Library
 ====================
 
-This library is designed to work with Newhaven OLEDs based on the US20166
-controller chip. This includes NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Others
-may also work, but were not tested with this library.
+This library is designed to work with Newhaven OLEDs based on the US2066
+controller chip using SPI (serial interface) mode. This includes models NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Other display models which use the same controller chip may also work, but were not tested with this library.
 
-This library should work with both Arduino and Energia MSP430 projects.
+This library works with both Arduino and Energia MSP430 projects.
 
-Although the Newhaven data sheets don't directly mention support for 3.3V
+The library is based on [example code][1] provided by Newhaven Display International and [updates][2] made by Pasquale D'Antini. I made further updates to the code by packaging it into Arduino library format, providing cleaner selection of Arduino control pin numbers, and improving the bit shift data transfer.
+
+Although the Newhaven data sheets do not directly mention support for 3.3V
 operation (e.g., when using MSP430 controllers), I have had success with
 configurations using 3.3V logic and either 5V or 3.3V VDD supply voltage.
 
 The library implements a "bit-bang" SPI, and can therefore use any available
-Arduino I/O pins to control the display. However, if your project is using
-hardware SPI to control other devices, then do not use the hardware SPI pins.
+I/O pins to control the display. However, if your project is using
+hardware SPI to control other devices, then do not use those hardware SPI pins.
 For example, do not use pins 10-13 on an Arduino UNO (other Arduinos may use
 other pins for hardware SPI).
 
@@ -42,8 +43,8 @@ data to the display. Refer to the example sketch in the examples folder,
 along with the datasheets referenced below for further details.
 
 
-Hardware Pin Configuration
---------------------------
+Hardware Pin Configuration for SPI (Serial Interface) Mode
+----------------------------------------------------------
 
      OLED                ARDUINO/MSP430
      ----                --------------
@@ -73,5 +74,8 @@ Additional References
 + NHD-0216CW [datasheet](https://www.newhavendisplay.com/specs/NHD-0216CW-AY3.pdf).
 + NHD-0220CW [datasheet](https://www.newhavendisplay.com/specs/NHD-0220CW-AB3.pdf).
 + US2066 controller chip [datasheet](http://www.newhavendisplay.com/app_notes/US2066.pdf).
-+ Sample code from [Newhaven Display International](https://newhavendisplay.com/app_notes.html).
-+ [Tutorial code](https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0) by Pasquale D'Antini.
++ Sample code from [Newhaven Display International][1] (click on "Arduino Example Code").
++ [Tutorial code][2] by Pasquale D'Antini.
+
+[1]: https://newhavendisplay.com/app_notes.html
+[2]: https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0

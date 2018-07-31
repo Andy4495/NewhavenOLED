@@ -221,10 +221,19 @@ void NewhavenOLED::end()
 // Private function to toggle SCK_pin
 void NewhavenOLED::clock_cycle()
 {
-  digitalWrite(SCK_pin, LOW);           // Sets LOW the SCLK line of the display
-  delayMicroseconds(1);              // Waits 1 us (required for timing purpose)
-  digitalWrite(SCK_pin, HIGH);          // Sets HIGH the SCLK line of the display
-  delayMicroseconds(1);              // Waits 1 us (required for timing purpose)
+  // This function uses a hard-coded delay to ensure proper timing of
+  // the SCLK. Per the US2066 driver chip datasheet, the clock period
+  // needs to be a minimum of 1 us. While the digitalWrite() function
+  // tends to be "slow" (at least with respect to direct port manipulation),
+  // some chips with faster clock speeds may still change the pin state
+  // faster than 1 us when using digitalWrite().
+  // Note that the Arduino and Energia documentation state that the function
+  // is only accurate for values of  3us and greater; hence, the delay below
+  // uses 3 us, even though a 1 us delay would be sufficient.
+  digitalWrite(SCK_pin, LOW);        // Sets LOW the SCLK line of the display
+  delayMicroseconds(3);              // Waits >1 us (required for timing purpose)
+  digitalWrite(SCK_pin, HIGH);       // Sets HIGH the SCLK line of the display
+  delayMicroseconds(3);              // Waits >1 us (required for timing purpose)
 }
 
 // Private function to package the byte and transmit to OLED
@@ -232,8 +241,19 @@ void NewhavenOLED::send_byte(byte tx_b)
 // A byte is split into upper and lower nybbles, with 4 low bits filling the transfer
 // In other words: low data nybble, 4 low bits, high data nybble, 4 low bits
 {
-  byte i = 0;                        // Bit index
+  byte i;
 
+  // send the lower nybble
+  digitalWrite(MOSI_pin, tx_b & 0x01);
+  clock_cycle();
+  digitalWrite(MOSI_pin, tx_b & 0x02);
+  clock_cycle();
+  digitalWrite(MOSI_pin, tx_b & 0x04);
+  clock_cycle();
+  digitalWrite(MOSI_pin, tx_b & 0x08);
+  clock_cycle();
+
+/*
   for (i = 0; i < 4; i++)
   {
     if ((tx_b & 0x01) == 0x1)
@@ -247,6 +267,7 @@ void NewhavenOLED::send_byte(byte tx_b)
     clock_cycle();
     tx_b = tx_b >> 1;
   }
+*/
 
   for (i = 0; i < 4; i++)  // 4 low data filler bits
   {
@@ -254,7 +275,17 @@ void NewhavenOLED::send_byte(byte tx_b)
     clock_cycle();
   }
 
-  for (i = 0; i < 4; i++)
+  // send the upper nybble
+  digitalWrite(MOSI_pin, tx_b & 0x10);
+  clock_cycle();
+  digitalWrite(MOSI_pin, tx_b & 0x20);
+  clock_cycle();
+  digitalWrite(MOSI_pin, tx_b & 0x40);
+  clock_cycle();
+  digitalWrite(MOSI_pin, tx_b & 0x80);
+  clock_cycle();
+
+/*  for (i = 0; i < 4; i++)
   {
     if ((tx_b & 0x1) == 0x1)
     {
@@ -266,7 +297,7 @@ void NewhavenOLED::send_byte(byte tx_b)
     }
     clock_cycle();
     tx_b = tx_b >> 1;
-  }
+  } */
 
   for (i = 0; i < 4; i++) // 4 low data filler bits
   {
