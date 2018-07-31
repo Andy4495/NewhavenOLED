@@ -253,22 +253,6 @@ void NewhavenOLED::send_byte(byte tx_b)
   digitalWrite(MOSI_pin, tx_b & 0x08);
   clock_cycle();
 
-/*
-  for (i = 0; i < 4; i++)
-  {
-    if ((tx_b & 0x01) == 0x1)
-    {
-      digitalWrite(MOSI_pin, HIGH);
-    }
-    else
-    {
-      digitalWrite(MOSI_pin, LOW);
-    }
-    clock_cycle();
-    tx_b = tx_b >> 1;
-  }
-*/
-
   for (i = 0; i < 4; i++)  // 4 low data filler bits
   {
     digitalWrite(MOSI_pin, LOW);
@@ -284,20 +268,6 @@ void NewhavenOLED::send_byte(byte tx_b)
   clock_cycle();
   digitalWrite(MOSI_pin, tx_b & 0x80);
   clock_cycle();
-
-/*  for (i = 0; i < 4; i++)
-  {
-    if ((tx_b & 0x1) == 0x1)
-    {
-      digitalWrite(MOSI_pin, HIGH);
-    }
-    else
-    {
-      digitalWrite(MOSI_pin, LOW);
-    }
-    clock_cycle();
-    tx_b = tx_b >> 1;
-  } */
 
   for (i = 0; i < 4; i++) // 4 low data filler bits
   {
