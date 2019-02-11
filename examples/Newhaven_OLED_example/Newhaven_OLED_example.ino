@@ -1,12 +1,18 @@
 /*
    Demo_NHD0420CW-Ax3_SPI.ino
 
-   Tutorial sketch for use of character OLED slim display family by Newhaven with Arduino Uno.  
+   Tutorial sketch for use of character OLED slim display family by Newhaven with Arduino Uno.
    Models: NHD0420CW-Ax3, NHD0220CW-Ax3, NHD0216CW-Ax3. Controller: US2066
-   Serial (SPI) interface. 
+   Serial (SPI) interface.
 
-   Displays on the OLED alternately a 4-line message and a sequence of character angle bracket symbols.
-   This sketch assumes the use of a 4x16 display; if different, modify the values of the two variables
+
+   First shows the direct use of the command() and data() methods to display
+   a text message and a sequence of angle bracket symbols.
+   Next, makes use of the various write() methods to ASCII characters one at
+   a time across the display, then individually updates a single character in
+   the midddle of the first line. And then once again displays a text message.
+
+   This sketch assumes the use of a 2x16 display; if different, modify the values of the two variables
    ROW_N and COLUMN_N.
 
    The circuit:
@@ -29,7 +35,8 @@
    Modified and adapted to Arduino Uno 30 Mar 2015 by Pasquale D'Antini
    Modified 19 May 2015 by Pasquale D'Antini:
    https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0
-   Further modifications to use "NewhavenOLED" library by Andy4495, Dec 2017.
+   
+   Further modifications to use "NewhavenOLED" library by Andy4495, Dec 2017 and Jan 2019.
 
    This example code is in the public domain.
 */
@@ -107,10 +114,42 @@ void blocks(void)    // SUBROUTINE: FILLS THE ENTIRE DISPLAY WITH ALTERNATING AN
 }
 // _______________________________________________________________________________________
 
+void oneAtATime() {
+  char c = 'A';
+  oled.clear();
+
+  for (int i = 0; i < 2 * ROW_N * COLUMN_N; i++) {
+    oled.write(c);
+    delay(100);
+    c++;
+  }
+}
+// _______________________________________________________________________________________
+
+void singleUpdate() {
+  char c = '0';
+
+  for (int i = 0; i < COLUMN_N; i++) {
+    oled.write(COLUMN_N/2, 0, c++);
+  }
+  delay(100);
+
+}
+// _______________________________________________________________________________________
+
+void allAtOnce() {
+  char s[] = "The quick brown fox jumps over the lazy dog. Now is the time. One ring to rule them all.";
+
+  oled.write(s);
+
+}
+// _______________________________________________________________________________________
+
+
 void setup(void)
 {
   oled.begin();                    // Setup control pins and initialize OLED controller
-  
+
   if (ROW_N == 2)                  // Update DDRAM address for 2-line mode
     new_line[1] = 0xC0;            // 3- and 4-line use row addresses as defined above
 
@@ -123,4 +162,10 @@ void loop(void)
   delay(1000);                       // Waits, only for visual effect purpose
   blocks();
   delay(1000);                       // Waits, only for visual effect purpose
+  oneAtATime();
+  delay(1000);
+  singleUpdate();
+  delay(1000);
+  allAtOnce();
+  delay(1000);
 }

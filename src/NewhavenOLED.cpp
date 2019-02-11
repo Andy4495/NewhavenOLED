@@ -53,6 +53,13 @@ NewhavenOLED::NewhavenOLED(byte lines, byte cols, byte mosiPin, byte sckPin, byt
   Row_bit = 0x08;                    // Display mode: 2/4 lines
   else
   Row_bit = 0x00;                    // Display mode: 1/3 lines
+
+  row_address[0] = 0x80;
+  row_address[1] = 0xA0;
+  row_address[2] = 0xC0;
+  row_address[3] = 0xE0;
+  if (lines == 2) row_address[1] = 0xC0;
+
 }
 
 /* command(c)
@@ -133,6 +140,105 @@ void NewhavenOLED::clear()
 {
   command(0x01);        // Clear display
   delay(2);             // After a clear display, a minimum pause of 1-2 ms is required
+
+  cursorC = 0;
+  cursorR = 0;
+}
+
+/* setCursor(int col, int row)
+   Sets position of next write() command, without writing a character to display.
+   If value is out of bounds, then sets cursor to home position (0,0).
+   Column and row values start at zero.
+*/
+void NewhavenOLED::setCursor(int col, int row) {
+  if (col < Cols && row < Lines) {
+    cursorC = col;
+    cursorR = row;
+  } else {
+    cursorC = 0;
+    cursorR = 0;
+  }
+}
+
+/* write (int col, int row, char c)
+   Writes a single character to cursor position (col, row) and moves
+   the cursor ahead one position.
+   Automatically wraps around to next line or home position (0,0) if
+   writing to last character on display.
+   If cursor position is out of bounds, then writes nothing and does
+   not update cursor value.
+   Returns the number of characters written (either 0 or 1).
+*/
+byte NewhavenOLED::write(int col, int row, char c) {
+  int chars_written = 0;
+
+  if (col < Cols && row < Lines) {
+    cursorC = col;
+    cursorR = row;
+    chars_written++;
+    // Write the character
+    command(row_address[cursorR] + cursorC);
+    data(c);
+    // Update cursor postion. Wrap around if necessary.
+    cursorC++;
+    if (cursorC >= Cols) {
+      cursorR++;
+      cursorC = 0;
+    }
+    if (cursorR >= Lines) cursorR = 0;
+  }
+
+  return chars_written; // Number of characters written to display
+}
+
+/* write (char c)
+   Writes a single character to current cursor position and then moves
+   the cursor ahead one position.
+   Automatically wraps around to next line or home position (0,0) if
+   writing to last character on display.
+   Returns the number of characters written (always 1).
+*/
+byte NewhavenOLED::write(char c) {
+  // Write the character
+  command(row_address[cursorR] + cursorC);
+  data(c);
+  // Update cursor postion. Wrap around if necessary.
+  cursorC++;
+  if (cursorC >= Cols) {
+    cursorR++;
+    cursorC = 0;
+  }
+  if (cursorR >= Lines) cursorR = 0;
+
+  return 1; // Number of characters written to display
+}
+
+/* write (char* s)
+   s is assumed to be a c-string that contains the total number of
+   characters in the display (i.e. rows * colums). Any characters in s beyond
+   the end of the display are ignored.
+   If s is shorter than the size of the display, then the behavior is undefined.
+   Returns the number of characters written (always the rows * colums as defined in constructor).
+   The cursor is moved to home (0,0).
+*/
+
+byte NewhavenOLED::write(const char* s) {
+  int position = 0;
+
+  command(0x01); // Clear display and cursor home
+  delay(2);           // Need a pause after clearing display
+  for (cursorR = 0; cursorR < Lines; cursorR++)        // One row at a time
+  {
+    command(row_address[cursorR]);        //  moves the cursor to the first column of that line
+    for (cursorC = 0; cursorC < Cols; cursorC++)      //  One character at a time
+    {
+      data((byte)s[position++]);         //  displays the corresponding string
+    }
+  }
+  cursorR = 0;
+  cursorC = 0;
+
+  return Lines * Cols;                     // Number of characters written to display
 }
 
 /* begin()
@@ -153,6 +259,9 @@ void NewhavenOLED::begin()
   digitalWrite(MOSI_pin, LOW);
   pinMode(SCK_pin, OUTPUT);
   digitalWrite(SCK_pin, HIGH);
+
+  cursorC = 0;
+  cursorR = 0;
 
   command(0x22 | Row_bit); // Function set: extended command set (RE=1), lines #
   command(0x71);        // Function selection A:
