@@ -6,7 +6,9 @@ controller chip using SPI (serial interface) mode. This includes models NHD-0216
 
 This library works with both Arduino and Energia MSP430 projects.
 
-The library is based on [example code][1] provided by Newhaven Display International and [updates][2] made by Pasquale D'Antini. I made further updates to the code by packaging it into Arduino library format, providing cleaner selection of Arduino control pin numbers, and improving the bit shift data transfer.
+The library is based on [example code][1] provided by Newhaven Display International and [updates][2] made by Pasquale D'Antini.
+
+I made further updates to the code by packaging it into Arduino library format, providing cleaner selection of control pin numbers (SDI, SCK, CS, RES), and improving the bit shift data transfer. In addition, several `write()` methods are available for easier use of the display.
 
 Although the Newhaven data sheets do not directly mention support for 3.3V
 operation (e.g., when using MSP430 controllers), I have had success with
@@ -15,33 +17,50 @@ configurations using 3.3V logic and either 5V or 3.3V VDD supply voltage.
 The library implements a "bit-bang" SPI, and can therefore use any available
 I/O pins to control the display. However, if your project is using
 hardware SPI to control other devices, then do not use those hardware SPI pins.
-For example, do not use pins 10-13 on an Arduino UNO (other Arduinos may use
-other pins for hardware SPI).
+For example, do not use pins 10-13 on an Arduino UNO.
 
 Usage
 -----
 
-Use the constructor to set up the display size (rows and columns) and Arduino
+*Refer to the `Newhaven_OLED_example` sketch in the `examples` folder.*
+
+Use the constructor to set up the display size (rows and columns) and
 pin numbers for the control pins. For example,
 
     NewhavenOLED oled(2, 16, 3, 4, 5, NO_PIN);
 
 In the above example, the display has 2 rows, 16 columns, the SDI pin (MOSI)
-is connected to Arduino pin 3, the SCLK pin (SCK) is connected to Arduino
-pin 4, and the /CS pin (chip select) is connected to Arduino pin 5. The
-/RES pin (reset) is hardwired to VDD (5V) and is not controlled by the
-Arduino (so "NO_PIN" is used in the constructor).
+is connected to Arduino pin 3, the SCLK pin (SCK) is connected to
+pin 4, and the /CS pin (chip select) is connected to  pin 5. The
+/RES pin (reset) is hardwired to VDD (5V), so "NO_PIN" is used in the constructor.
 
-After creating a NewhavenOLED object, call the "begin()" method before
+After creating a NewhavenOLED object, call the `begin()` method before
 using it. This initializes the OLED controller chip and makes it ready
 to display information. Continuing the example from above:
 
     oled.begin();
 
-You can then use the methods command(c) and data(d) to send commands and
-data to the display. Refer to the example sketch in the examples folder,
-along with the datasheets referenced below for further details.
+There are several methods for writing characters and controlling the display:
 
+    clear()
+
+Clears the display and sets the current cursor position to the top left (0,0).
+
+    setCursor(col, row)
+
+Sets the cursor to the position specified by (col,row). This is where the next character will be written when using `write(c)`.
+If the cursor position is outside the bounds of the display, then this method has no effect.
+
+    write(col, row, c)
+
+Writes character `c` to position (col,row) on the display without changing any other characters on the display. Advances cursor to next position (wrapping at the end of a line if needed).
+If the cursor position is outside the bounds of the display, then this method has no effect.
+
+    write(s)
+
+Clear the display and writes the c-string pointed to by `s` to the display. `s` needs to be at least as large as the number of characters in the display. Any characters after the end of the display are ignored.
+
+You can also use `command(c)` and `data(d)` to send commands and data to the display. Refer to the datasheets referenced below for further details.
 
 Hardware Pin Configuration for SPI (Serial Interface) Mode
 ----------------------------------------------------------
