@@ -8,7 +8,7 @@ This library works with both Arduino and Energia MSP430 projects.
 
 The library is based on [example code][1] provided by Newhaven Display International and [updates][2] made by Pasquale D'Antini.
 
-I made further updates to the code by packaging it into Arduino library format, providing cleaner selection of control pin numbers (SDI, SCK, CS, RES), and improving the bit shift data transfer. In addition, several `write()` methods are available for easier use of the display.
+I made further updates to the code by packaging it into Arduino library format, providing cleaner selection of control pin numbers (SDI, SCK, CS, RES), improving the bit shift data transfer, and added several `write()` methods to ease the use of the display.
 
 Although the Newhaven data sheets do not directly mention support for 3.3V
 operation (e.g., when using MSP430 controllers), I have had success with
@@ -36,9 +36,9 @@ pin 4, and the /CS pin (chip select) is connected to  pin 5. The
 
 After creating a NewhavenOLED object, call the `begin()` method before
 using it. This initializes the OLED controller chip and makes it ready
-to display information. Continuing the example from above:
+to display information:
 
-    oled.begin();
+    begin()
 
 There are several methods for writing characters and controlling the display:
 
