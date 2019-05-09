@@ -179,7 +179,7 @@ byte NewhavenOLED::write(int col, int row, char c) {
     // Write the character
     command(row_address[cursorR] + cursorC);
     data(c);
-    // Update cursor postion. Wrap around if necessary.
+    // Update cursor position. Wrap around if necessary.
     cursorC++;
     if (cursorC >= Cols) {
       cursorR++;
@@ -202,7 +202,7 @@ byte NewhavenOLED::write(char c) {
   // Write the character
   command(row_address[cursorR] + cursorC);
   data(c);
-  // Update cursor postion. Wrap around if necessary.
+  // Update cursor position. Wrap around if necessary.
   cursorC++;
   if (cursorC >= Cols) {
     cursorR++;
@@ -215,10 +215,10 @@ byte NewhavenOLED::write(char c) {
 
 /* write (char* s)
    s is assumed to be a c-string that contains the total number of
-   characters in the display (i.e. rows * colums). Any characters in s beyond
+   characters in the display (i.e. rows * columns). Any characters in s beyond
    the end of the display are ignored.
    If s is shorter than the size of the display, then the behavior is undefined.
-   Returns the number of characters written (always the rows * colums as defined in constructor).
+   Returns the number of characters written (always the rows * columns as defined in constructor).
    The cursor is moved to home (0,0).
 */
 
@@ -242,7 +242,7 @@ byte NewhavenOLED::write(const char* s) {
 }
 
 /* begin()
-   Intialize the control signals and display hardware.
+   Initialize the control signals and display hardware.
    Note that this function has 252 ms of blocking delays
 */
 void NewhavenOLED::begin()

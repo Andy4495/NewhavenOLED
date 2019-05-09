@@ -75,7 +75,7 @@ void output(void)                    // SUBROUTINE: DISPLAYS THE FOUR STRINGS, T
     oled.command(new_line[r]);       //  moves the cursor to the first column of that line
     for (c = 0; c < COLUMN_N; c++)   // One character at a time,
     {
-      oled.data(TEXT[r][c]);         //  displays the correspondig string
+      oled.data(TEXT[r][c]);         //  displays the corresponding string
     }
   }
 
@@ -86,7 +86,7 @@ void output(void)                    // SUBROUTINE: DISPLAYS THE FOUR STRINGS, T
     oled.command(new_line[r]);       //  moves the cursor to the first column of that line
     for (c = 0; c < COLUMN_N; c++)   // One character at a time,
     {
-      oled.data(TEXT[3 - r][c]);     //  displays the correspondig string (in reverse order)
+      oled.data(TEXT[3 - r][c]);     //  displays the corresponding string (in reverse order)
     }
   }
 }
