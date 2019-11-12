@@ -10,7 +10,7 @@
 
    Further updated by Andy4495 to package into Arduino library format
    and allow simpler selection of Arduino control pin numbers.
-   https://gitlab.com/Andy4495/NewhavenOLED
+   https://github.com/Andy4495/NewhavenOLED
 */
 /*
  This library implements a software SPI ("bit-bang") communication with
