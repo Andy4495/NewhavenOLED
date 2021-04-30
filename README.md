@@ -98,9 +98,11 @@ Additional References
 
 License
 -------
+
 The software and other files in this repository are released under what is commonly called the [MIT License][100]. See the file [`LICENSE.txt`][101] in this repository.
 
 [1]: https://newhavendisplay.com/app_notes.html
 [2]: https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0
 [100]: https://choosealicense.com/licenses/mit/
 [101]: ./LICENSE.txt
+[200]: https://github.com/Andy4495/NewhavenOLED
