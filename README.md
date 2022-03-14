@@ -48,12 +48,16 @@ Clears the display and sets the current cursor position to the top left (0,0).
 
     setCursor(col, row)
 
-Sets the cursor to the position specified by (col,row). This is where the next character will be written when using `write(c)`.
+Sets the cursor to the position specified by (col,row). This is where the next character will be written when using `write(c)`.  
 If the cursor position is outside the bounds of the display, then this method has no effect.
+
+    write(c)
+
+Writes the single character `c` at the current cursor position and advances the cursor to the next position (wrapping the end of line or to the top of display as needed).
 
     write(col, row, c)
 
-Writes character `c` to position (col,row) on the display without changing any other characters on the display. Advances cursor to next position (wrapping at the end of a line if needed).
+Writes character `c` to position (col,row) on the display without changing any other characters on the display. Advances cursor to next position (wrapping at the end of a line if needed).  
 If the cursor position is outside the bounds of the display, then this method has no effect.
 
     write(s)
