@@ -1,20 +1,18 @@
 NewhavenOLED Library
 ====================
 
-This library is designed to work with Newhaven OLEDs based on the US2066
+This Arduino library is designed to work with Newhaven OLEDs based on the US2066
 controller chip using SPI (serial interface) mode. This includes models NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Other display models which use the same controller chip may also work, but were not tested with this library.
 
-This library works with both Arduino and Energia MSP430 projects.
+The library is based on example code provided by Newhaven Display International and [updates][2] made by Pasquale D'Antini. The original example code is apparently [no longer available][99] on Newhaven's web site, but a similar example is still [available][1] in Newhaven's updated Support Center.
 
-The library is based on [example code][1] provided by Newhaven Display International and [updates][2] made by Pasquale D'Antini.
-
-I made further updates to the code by packaging it into Arduino library format, providing cleaner selection of control pin numbers (SDI, SCK, CS, RES), improving the bit shift data transfer, and added several `write()` methods to ease the use of the display.
+This library further expands on these examples by packaging the code into [Arduino library format][7], providing cleaner selection of control pin numbers (SDI, SCK, CS, RES), improving the bit shift data transfer, and added several `write()` methods to ease the use of the display.
 
 Although the Newhaven data sheets do not directly mention support for 3.3V
 operation (e.g., when using MSP430 controllers), I have had success with
 configurations using 3.3V logic and either 5V or 3.3V VDD supply voltage.
 
-The library implements a "bit-bang" SPI, and can therefore use any available
+This library implements a "bit-bang" SPI, and can therefore use any available
 I/O pins to control the display. However, if your project is using
 hardware SPI to control other devices, then do not use those hardware SPI pins.
 For example, do not use pins 10-13 on an Arduino UNO.
@@ -22,7 +20,7 @@ For example, do not use pins 10-13 on an Arduino UNO.
 Usage
 -----
 
-*Refer to the `Newhaven_OLED_example` sketch in the `examples` folder.*
+*Refer to the example sketch in the `examples` folder.*
 
 Use the constructor to set up the display size (rows and columns) and
 pin numbers for the control pins. For example,
@@ -94,19 +92,26 @@ Hardware Pin Configuration for SPI (Serial Interface) Mode
 Additional References
 ---------------------
 
-+ NHD-0216CW [datasheet](https://www.newhavendisplay.com/specs/NHD-0216CW-AY3.pdf).
-+ NHD-0220CW [datasheet](https://www.newhavendisplay.com/specs/NHD-0220CW-AB3.pdf).
++ NHD-0216CW [datasheet][3].
++ NHD-0220CW [datasheet][4].
 + US2066 controller chip [datasheet](http://www.newhavendisplay.com/app_notes/US2066.pdf).
-+ Sample code from [Newhaven Display International][1] (click on "Arduino Example Code").
-+ [Tutorial code][2] by Pasquale D'Antini.
++ Sample code from [Newhaven Display International][1]
++ Newhaven [US2066 code][5] on GitHub.
++ [Tutorial code][2] by Pasquale D'Antini, also availalbe on [GitHub][6].
 
 License
 -------
 
 The software and other files in this repository are released under what is commonly called the [MIT License][100]. See the file [`LICENSE.txt`][101] in this repository.
 
-[1]: https://newhavendisplay.com/app_notes.html
+[1]: https://support.newhavendisplay.com/hc/en-us/articles/4413876825111-NHD-0216MW-0216CW-0220CW-0420CW-with-Arduino
 [2]: https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0
+[3]: https://www.newhavendisplay.com/specs/NHD-0216CW-AY3.pdf
+[4]: https://www.newhavendisplay.com/specs/NHD-0220CW-AB3.pdf
+[5]: https://github.com/NewhavenDisplay/NHD_US2066
+[6]: https://github.com/oldmaker/hello-world
+[7]: https://arduino.github.io/arduino-cli/0.21/library-specification/
+[99]: https://newhavendisplay.com/app_notes.html
 [100]: https://choosealicense.com/licenses/mit/
 [101]: ./LICENSE.txt
 [200]: https://github.com/Andy4495/NewhavenOLED
