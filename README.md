@@ -90,6 +90,7 @@ You can also use `command(c)` and `data(d)` to send commands and data to the dis
 
 The software and other files in this repository are released under what is commonly called the [MIT License][100]. See the file [`LICENSE.txt`][101] in this repository.
 
+<!-- markdown-link-check-disable-next-line -->
 [1]: https://support.newhavendisplay.com/hc/en-us/articles/4413876825111-NHD-0216MW-0216CW-0220CW-0420CW-with-Arduino
 [2]: https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0
 [3]: https://www.newhavendisplay.com/specs/NHD-0216CW-AY3.pdf
@@ -101,4 +102,5 @@ The software and other files in this repository are released under what is commo
 [101]: ./LICENSE.txt
 [200]: https://github.com/Andy4495/NewhavenOLED
 
+[//]: # (The link for reference [1] above returns error 403, but is still loads the correct page. So have the Markdown Link Check ignore that link.)
 [//]: # (Dead link from older version of README: original location of sample code https://newhavendisplay.com/app_notes.html)
