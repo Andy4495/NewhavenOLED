@@ -1,5 +1,7 @@
-NewhavenOLED Library
-====================
+# NewhavenOLED Library
+
+[![Arduino Compile Sketches](https://github.com/Andy4495/NewhavenOLED/actions/workflows/arduino-compile-sketches.yml/badge.svg)](https://github.com/Andy4495/NewhavenOLED/actions/workflows/arduino-compile-sketches.yml)
+[![Check Markdown Links](https://github.com/Andy4495/NewhavenOLED/actions/workflows/CheckMarkdownLinks.yml/badge.svg)](https://github.com/Andy4495/NewhavenOLED/actions/workflows/CheckMarkdownLinks.yml)
 
 This Arduino library is designed to work with Newhaven OLEDs based on the US2066 controller chip using SPI (serial interface) mode. This includes models NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Other display models which use the same controller chip may also work, but were not tested with this library.
 
@@ -11,8 +13,7 @@ Although the Newhaven data sheets do not directly mention support for 3.3V opera
 
 This library implements a "bit-bang" SPI, and can therefore use any available I/O pins to control the display. However, if your project is using hardware SPI to control other devices, then do not use those hardware SPI pins. For example, do not use pins 10-13 on an Arduino UNO.
 
-Usage
------
+## Usage
 
 *Refer to the example sketch in the `examples` folder.*
 
@@ -52,8 +53,7 @@ Clear the display and writes the c-string pointed to by `s` to the display. `s` 
 
 You can also use `command(c)` and `data(d)` to send commands and data to the display. Refer to the datasheets referenced below for further details.
 
-Hardware Pin Configuration for SPI (Serial Interface) Mode
-----------------------------------------------------------
+## Hardware Pin Configuration for SPI (Serial Interface) Mode
 
      OLED                ARDUINO/MSP430
      ----                --------------
@@ -77,8 +77,7 @@ Hardware Pin Configuration for SPI (Serial Interface) Mode
      Pins 17-19 (BS0-2)  GND     
      Pin 20 (Vss)        GND     
 
-Additional References
----------------------
+## Additional References
 
 + NHD-0216CW [datasheet][3].
 + NHD-0220CW [datasheet][4].
@@ -87,8 +86,7 @@ Additional References
 + Newhaven [US2066 code][5] on GitHub.
 + [Tutorial code][2] by Pasquale D'Antini, also availalbe on [GitHub][6].
 
-License
--------
+## License
 
 The software and other files in this repository are released under what is commonly called the [MIT License][100]. See the file [`LICENSE.txt`][101] in this repository.
 
