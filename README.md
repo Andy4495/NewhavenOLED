@@ -5,7 +5,7 @@
 
 This Arduino library is designed to work with Newhaven OLEDs based on the US2066 controller chip using SPI (serial interface) mode. This includes models NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Other display models which use the same controller chip may also work, but were not tested with this library.
 
-The library is based on example code provided by Newhaven Display International and [updates][2] made by Pasquale D'Antini. The original example code is apparently no longer available on Newhaven's web site, but a similar example is still [available][1] in Newhaven's updated Support Center.
+The library is based on example code provided by Newhaven Display International and updates made by Pasquale D'Antini. The original example code and updates are apparently no longer available on Newhaven's web site, but a similar example is still [available][1] in Newhaven's updated Support Center and [GitHub][6].
 
 This library further expands on these examples by packaging the code into [Arduino library format][7], providing cleaner selection of control pin numbers (SDI, SCK, CS, RES), improving the bit shift data transfer, and adding several `write()` methods to ease the use of the display.
 
@@ -79,28 +79,30 @@ You can also use `command(c)` and `data(d)` to send commands and data to the dis
 
 ## Additional References
 
-+ NHD-0216CW [datasheet][3].
-+ NHD-0220CW [datasheet][4].
-+ US2066 controller chip [datasheet](http://www.newhavendisplay.com/app_notes/US2066.pdf).
++ NHD-0216CW [datasheet][3]
++ NHD-0220CW [datasheet][4]
++ US2066 controller chip [datasheet][8]
 + Sample code from [Newhaven Display International][1]
-+ Newhaven [US2066 code][5] on GitHub.
-+ [Tutorial code][2] by Pasquale D'Antini, also availalbe on [GitHub][6].
++ Newhaven [US2066 code][5] on GitHub
++ [Tutorial code][6] by Pasquale D'Antini on GitHub
 
 ## License
 
 The software and other files in this repository are released under what is commonly called the [MIT License][100]. See the file [`LICENSE.txt`][101] in this repository.
 
 <!-- markdown-link-check-disable-next-line -->
-[1]: https://support.newhavendisplay.com/hc/en-us/articles/4413876825111-NHD-0216MW-0216CW-0220CW-0420CW-with-Arduino
-[2]: https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0
-[3]: https://www.newhavendisplay.com/specs/NHD-0216CW-AY3.pdf
-[4]: https://www.newhavendisplay.com/specs/NHD-0220CW-AB3.pdf
+[1]: https://support.newhavendisplay.com/hc/en-us/articles/4413876825111
+[3]: https://newhavendisplay.com/content/specs/NHD-0216CW-AB3.pdf
+[4]: https://newhavendisplay.com/content/specs/NHD-0220CW-AB3.pdf
 [5]: https://github.com/NewhavenDisplay/NHD_US2066
 [6]: https://github.com/oldmaker/hello-world
 [7]: https://arduino.github.io/arduino-cli/0.21/library-specification/
+<!-- markdown-link-check-disable-next-line -->
+[8]: https://support.newhavendisplay.com/hc/en-us/articles/4414485495703
 [100]: https://choosealicense.com/licenses/mit/
 [101]: ./LICENSE.txt
 [200]: https://github.com/Andy4495/NewhavenOLED
 
-[//]: # (The link for reference [1] above returns error 403, but is still loads the correct page. So have the Markdown Link Check ignore that link.)
+[//]: # (The link for references [1] and [8] above return error 403, but still load the correct page. So have the Markdown Link Check ignore those links.)
 [//]: # (Dead link from older version of README: original location of sample code https://newhavendisplay.com/app_notes.html)
+[//]: # (Dead link to old forum location with updated example code previously reference [2]: https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0)
