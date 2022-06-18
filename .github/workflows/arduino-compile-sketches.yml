@@ -18,4 +18,11 @@ jobs:
           enable-warnings-report: true
           libraries: |
             - source-path: ./
+      # Now trigger builds on repos dependent on this library
+      - name: Trigger build on Wireless-Signal-Tester
+        run: |
+          curl -X POST https://api.github.com/repos/Andy4495/Wireless-Signal-Tester/actions/workflows/arduino-compile-sketches.yml/dispatches -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.FORCE_REBUILD }}" -d '{"ref":"main", "inputs":{"message":"Triggered by ${{ github.repository }} from ${{ github.workflow }} workflow run number ${{ github.run_number }}"}}'
+      - name: Trigger build on Sensor-Repeater
+        run: |
+          curl -X POST https://api.github.com/repos/Andy4495/Sensor-Repeater/actions/workflows/arduino-compile-sketches.yml/dispatches -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.FORCE_REBUILD }}" -d '{"ref":"main", "inputs":{"message":"Triggered by ${{ github.repository }} from ${{ github.workflow }} workflow run number ${{ github.run_number }}"}}'
 
