@@ -99,7 +99,7 @@ The software and other files in this repository are released under what is commo
 [8]: https://support.newhavendisplay.com/hc/en-us/articles/4414485495703
 [100]: https://choosealicense.com/licenses/mit/
 [101]: ./LICENSE.txt
-[200]: https://github.com/Andy4495/NewhavenOLED
+[//]: # ([200]: https://github.com/Andy4495/NewhavenOLED)
 
 [//]: # (Dead link from older version of README: original location of sample code https://newhavendisplay.com/app_notes.html)
 [//]: # (Dead link to old forum location with updated example code previously reference [2]: https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0)
