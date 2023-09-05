@@ -5,25 +5,31 @@ on:
   release:
     types: [published,edited]
   workflow_dispatch:
+    inputs:
+      message:
+        description: Message to display in job summary
+        required: false
+        type: string
 
 jobs:
   build-dependent-repos:
-    runs-on: ubuntu-latest
-    steps:
-       # Now trigger builds on repos dependent on this library
-      - name: Trigger build on Wireless-Signal-Tester
-        run: |
-          curl -X POST https://api.github.com/repos/Andy4495/Wireless-Signal-Tester/actions/workflows/arduino-compile-sketches.yml/dispatches -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.FORCE_REBUILD }}" -d '{"ref":"main", "inputs":{"message":"Triggered by ${{ github.repository }} from ${{ github.workflow }} workflow run number ${{ github.run_number }}"}}'
-      - name: Trigger build on Sensor-Repeater
-        run: |
-          curl -X POST https://api.github.com/repos/Andy4495/Sensor-Repeater/actions/workflows/arduino-compile-sketches.yml/dispatches -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.FORCE_REBUILD }}" -d '{"ref":"main", "inputs":{"message":"Triggered by ${{ github.repository }} from ${{ github.workflow }} workflow run number ${{ github.run_number }}"}}'
-      - name: Trigger build on TI-RSLK-Example-Sketches
-        run: |
-          curl -X POST https://api.github.com/repos/Andy4495/TI-RSLK-Example-Sketches/actions/workflows/arduino-compile-sketches.yml/dispatches -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.FORCE_REBUILD }}" -d '{"ref":"main", "inputs":{"message":"Triggered by ${{ github.repository }} from ${{ github.workflow }} workflow run number ${{ github.run_number }}"}}'
-      - name: Trigger build on Wireless-Sensor-Receiver-Hub
-        run: |
-          curl -X POST https://api.github.com/repos/Andy4495/Wireless-Sensor-Receiver-Hub/actions/workflows/arduino-compile-sketches.yml/dispatches -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.FORCE_REBUILD }}" -d '{"ref":"main", "inputs":{"message":"Triggered by ${{ github.repository }} from ${{ github.workflow }} workflow run number ${{ github.run_number }}"}}'
-      - name: Print job summary
-        run: | 
-          echo Event name: ${{ github.event_name }} >$GITHUB_STEP_SUMMARY
+    strategy:
+      matrix:
+        include:
+          - name: Trigger build on Wireless-Signal-Tester
+            repo: Wireless-Signal-Tester
+          - name: Trigger build on Sensor-Repeater
+            repo: Sensor-Repeater
+          - name: Trigger build on TI-RSLK-Example-Sketches
+            repo: TI-RSLK-Example-Sketches
+          - name: Trigger build on Wireless-Sensor-Receiver-Hub
+            repo: Wireless-Sensor-Receiver-Hub
+
+    name: call-compile-sketches-workflow
+    uses: Andy4495/.github/.github/workflows/build-dependent-repos.yml@main
+    with:
+      message: ${{ inputs.message }}
+      repo-name: ${{ matrix.repo }}
+    secrets: inherit
+        
             
