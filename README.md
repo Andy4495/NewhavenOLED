@@ -5,13 +5,13 @@
 
 This Arduino library is designed to work with Newhaven OLEDs based on the US2066 controller chip using SPI (serial interface) mode. This includes models NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Other display models which use the same controller chip may also work, but were not tested with this library.
 
-The library is based on example code provided by Newhaven Display International and updates made by Pasquale D'Antini. The original example code and updates are apparently no longer available on Newhaven's web site, but a similar example is still [available][1] in Newhaven's updated Support Center and [GitHub][6].
+The library is based on example code provided by Newhaven Display International and updates made by [Pasquale D'Antini][6]. The original example code is apparently no longer available on Newhaven's web site, but a similar example is still [available][1] in Newhaven's updated Support Center.
 
 This library further expands on these examples by packaging the code into [Arduino library format][7], providing cleaner selection of control pin numbers (SDI, SCK, CS, RES), improving the bit shift data transfer, and adding several `write()` methods to ease the use of the display.
 
 Although the Newhaven data sheets do not directly mention support for 3.3V operation (e.g., when using MSP430 controllers), I have had success with configurations using 3.3V logic and either 5V or 3.3V VDD supply voltage.
 
-This library implements a "bit-bang" SPI, and can therefore use any available I/O pins to control the display. However, if your project is using hardware SPI to control other devices, then do not use those hardware SPI pins. For example, do not use pins 10-13 on an Arduino UNO.
+This library implements a "bit-bang" SPI, and can therefore use any available I/O pins to control the display.
 
 ## Usage
 
@@ -84,7 +84,7 @@ You can also use `command(c)` and `data(d)` to send commands and data to the dis
 + US2066 controller chip [datasheet][8]
 + Sample code from [Newhaven Display International][1]
 + Newhaven [US2066 code][5] on GitHub
-+ [Tutorial code][6] by Pasquale D'Antini on GitHub
++ [Tutorial code][6] by Pasquale D'Antini on GitHub.
 
 ## License
 
@@ -94,7 +94,7 @@ The software and other files in this repository are released under what is commo
 [3]: https://newhavendisplay.com/content/specs/NHD-0216CW-AB3.pdf
 [4]: https://newhavendisplay.com/content/specs/NHD-0220CW-AB3.pdf
 [5]: https://github.com/NewhavenDisplay/NHD_US2066
-[6]: https://github.com/oldmaker/hello-world
+[6]: https://github.com/oldmaker/Arduino-Newhaven_slim_OLED
 [7]: https://arduino.github.io/arduino-cli/0.21/library-specification/
 [8]: https://support.newhavendisplay.com/hc/en-us/articles/4414485495703
 [100]: https://choosealicense.com/licenses/mit/
