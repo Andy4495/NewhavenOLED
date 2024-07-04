@@ -36,7 +36,7 @@
    Modified 19 May 2015 by Pasquale D'Antini:
    https://www.newhavendisplay.com/NHD_forum/index.php?topic=914.0
    
-   Further modifications to use "NewhavenOLED" library by Andy4495, Dec 2017 and Jan 2019.
+   Further modifications to use "NewhavenOLED" library by Andy4495, Dec 2017, Jan 2019, July 2024.
 
    This example code is in the public domain.
 */
@@ -128,11 +128,12 @@ void oneAtATime() {
 
 void singleUpdate() {
   char c = '0';
+  oled.clear();
 
   for (int i = 0; i < COLUMN_N; i++) {
     oled.write(COLUMN_N/2, 0, c++);
+    delay(100);
   }
-  delay(100);
 
 }
 // _______________________________________________________________________________________
