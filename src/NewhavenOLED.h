@@ -55,5 +55,8 @@ private:
   void clock_cycle();
   void send_byte(byte c);
   byte row_address[4];
+  void enable_SCK_MOSI();
+  void disable_SCK_MOSI();
+
 };
 #endif

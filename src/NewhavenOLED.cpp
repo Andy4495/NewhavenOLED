@@ -76,6 +76,8 @@ void NewhavenOLED::command(byte c)
     digitalWrite(CS_pin, LOW);
   }
 
+  enable_SCK_MOSI();
+
   byte i = 0;                   // Bit index
 
   for (i = 0; i < 5; i++)
@@ -90,6 +92,8 @@ void NewhavenOLED::command(byte c)
   }
 
   send_byte(c);                      // Transmits the byte
+
+  disable_SCK_MOSI();
 
   if (CS_pin != NO_PIN) {
     digitalWrite(CS_pin, HIGH);
@@ -111,6 +115,8 @@ void NewhavenOLED::data(byte d)
     digitalWrite(CS_pin, LOW);
   }
 
+  enable_SCK_MOSI();
+
   byte i = 0;                        // Bit index
 
   for (i = 0; i < 5; i++)
@@ -126,6 +132,8 @@ void NewhavenOLED::data(byte d)
   clock_cycle();
 
   send_byte(d);                      // Transmits the byte
+
+  disable_SCK_MOSI();
 
   if (CS_pin != NO_PIN) {
     digitalWrite(CS_pin, HIGH);
@@ -255,10 +263,8 @@ void NewhavenOLED::begin()
     pinMode(CS_pin, OUTPUT);
     digitalWrite(CS_pin, HIGH);
   }
-  pinMode(MOSI_pin, OUTPUT);
-  digitalWrite(MOSI_pin, LOW);
-  pinMode(SCK_pin, OUTPUT);
-  digitalWrite(SCK_pin, HIGH);
+
+  enable_SCK_MOSI();
 
   cursorC = 0;
   cursorR = 0;
@@ -299,6 +305,9 @@ void NewhavenOLED::begin()
   delay(2);             // After a clear display, a minimum pause of 1-2 ms is required
   command(0x80);        // Set DDRAM address 0x00 in address counter (cursor home) (default value)
   command(0x0C);        // Display ON/OFF control: display ON, cursor off, blink off
+
+  disable_SCK_MOSI();
+
   delay(250);           // Waits 250 ms for stabilization purpose after display on
 }
 
@@ -308,20 +317,15 @@ void NewhavenOLED::begin()
 void NewhavenOLED::end()
 {
   command(0x20 | Row_bit); // RE=0 (exit from extended command set), lines #
-  command(0x08);        // display off, cursor off, blink off (default values)
+  command(0x08);           // display off, cursor off, blink off (default values)
 
-  // Put control pins in default state
-  pinMode(MOSI_pin, OUTPUT);
-  digitalWrite(MOSI_pin, LOW);
-  pinMode(SCK_pin, OUTPUT);
-  digitalWrite(SCK_pin, HIGH);
   if (CS_pin != NO_PIN) {
-    pinMode(CS_pin, OUTPUT);
     digitalWrite(CS_pin, HIGH);
+    pinMode(CS_pin, OUTPUT);
   }
   if (RST_pin != NO_PIN) {
-    pinMode(RST_pin, OUTPUT);
     digitalWrite(RST_pin, HIGH);
+    pinMode(RST_pin, OUTPUT);
   }
 
 }
@@ -340,9 +344,9 @@ void NewhavenOLED::clock_cycle()
   // Note that the Arduino and Energia documentation state that the function
   // is only accurate for values of  3us and greater; hence, the delay below
   // uses 3 us, even though a 1 us delay would be sufficient.
-  digitalWrite(SCK_pin, LOW);        // Sets LOW the SCLK line of the display
+  digitalWrite(SCK_pin, HIGH); 
   delayMicroseconds(3);              // Waits >1 us (required for timing purpose)
-  digitalWrite(SCK_pin, HIGH);       // Sets HIGH the SCLK line of the display
+  digitalWrite(SCK_pin, LOW);
   delayMicroseconds(3);              // Waits >1 us (required for timing purpose)
 }
 
@@ -384,4 +388,15 @@ void NewhavenOLED::send_byte(byte tx_b)
     digitalWrite(MOSI_pin, LOW);
     clock_cycle();
   }
+}
+
+void NewhavenOLED::enable_SCK_MOSI() {
+  pinMode(MOSI_pin, OUTPUT);
+  digitalWrite(SCK_pin, LOW);
+  pinMode(SCK_pin, OUTPUT);
+}
+
+void NewhavenOLED::disable_SCK_MOSI() {
+  pinMode(SCK_pin, INPUT);
+  pinMode(MOSI_pin, INPUT);
 }
