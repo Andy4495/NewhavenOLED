@@ -1,7 +1,7 @@
 # NewhavenOLED Library
 
 [![Arduino Compile Sketches](https://github.com/Andy4495/NewhavenOLED/actions/workflows/arduino-compile-sketches.yml/badge.svg)](https://github.com/Andy4495/NewhavenOLED/actions/workflows/arduino-compile-sketches.yml)
-[![Check Markdown Links](https://github.com/Andy4495/NewhavenOLED/actions/workflows/CheckMarkdownLinks.yml/badge.svg)](https://github.com/Andy4495/NewhavenOLED/actions/workflows/CheckMarkdownLinks.yml)
+[![Check Markdown Links](https://github.com/Andy4495/NewhavenOLED/actions/workflows/check-links.yml/badge.svg)](https://github.com/Andy4495/NewhavenOLED/actions/workflows/check-links.yml)
 
 This Arduino library is designed to work with Newhaven OLEDs based on the US2066 controller chip using SPI (serial interface) mode. This includes models NHD-0216CW-Ax3 and NHD-0220CW-Ax3. Other display models which use the same controller chip may also work, but were not tested with this library.
 
